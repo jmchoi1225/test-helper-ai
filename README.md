@@ -1,7 +1,7 @@
 # test-helper
 2021-2 SW Capstone Design Project
 
-(설명)
+(설명!!)
 
 ### Team Members
 
