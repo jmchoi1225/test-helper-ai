@@ -15,12 +15,12 @@ class AWSVideoStreamServiceIntegrationTest {
     private AWSVideoStreamService awsVideoStreamService;
 
     @Test
-    void createSignalingChannel() {
+    void createAndDeleteSignalingChannel() {
         //given
 
         //when
-        awsVideoStreamService.createSignalingChannel("CreateChannel");
-
+        awsVideoStreamService.createSignalingChannel("TestChannel");
+        awsVideoStreamService.deleteSignalingChannel("TestChannel");
         //then
     }
 }
