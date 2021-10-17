@@ -29,6 +29,11 @@ dependencies {
 	implementation 'com.amazonaws:aws-java-sdk-sts:1.12.88'
 	implementation 'com.amazonaws:aws-java-sdk-kinesisvideo:1.12.89'
 
+	//swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:2.0.2'
+
+
 
 
 	//log
