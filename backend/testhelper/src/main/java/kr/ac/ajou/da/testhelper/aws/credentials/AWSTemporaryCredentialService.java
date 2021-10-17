@@ -4,10 +4,11 @@ import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
 import com.amazonaws.services.securitytoken.model.Credentials;
 import com.amazonaws.services.securitytoken.model.GetSessionTokenRequest;
-import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AWSTemporaryCredentialService {
 
     private static final int TEMPORARY_CREDENTIALS_DURATION = 900;
@@ -20,8 +21,9 @@ public class AWSTemporaryCredentialService {
     public Credentials createTemporaryCredential() {
         GetSessionTokenRequest req = new GetSessionTokenRequest();
         req.setDurationSeconds(TEMPORARY_CREDENTIALS_DURATION);
-        GetSessionTokenResult res = stsClient.getSessionToken(req);
-        return res.getCredentials();
+        Credentials credentials = stsClient.getSessionToken(req).getCredentials();
+        log.info("Create Temporary Credential : {}", credentials.getAccessKeyId());
+        return credentials;
     }
 
 
