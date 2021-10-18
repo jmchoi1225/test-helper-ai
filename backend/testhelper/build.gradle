@@ -23,6 +23,21 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//aws
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-sts:1.12.88'
+	implementation 'com.amazonaws:aws-java-sdk-kinesisvideo:1.12.89'
+
+	//swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:2.0.2'
+
+
+
+
+	//log
+	implementation 'org.slf4j:slf4j-api:1.7.25'
 }
 
 test {
