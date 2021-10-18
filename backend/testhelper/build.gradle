@@ -33,14 +33,12 @@ dependencies {
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'io.springfox:springfox-swagger-ui:2.0.2'
 
-
-
-
 	//log
 	implementation 'org.slf4j:slf4j-api:1.7.25'
 
 	//db
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+	implementation 'org.springframework.data:spring-data-jpa:2.5.5'
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
 }
 
