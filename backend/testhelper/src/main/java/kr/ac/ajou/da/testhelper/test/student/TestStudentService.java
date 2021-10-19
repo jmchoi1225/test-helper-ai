@@ -1,6 +1,6 @@
 package kr.ac.ajou.da.testhelper.test.student;
 
-import kr.ac.ajou.da.testhelper.definition.Device;
+import kr.ac.ajou.da.testhelper.definition.DeviceType;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
@@ -15,7 +15,7 @@ public class TestStudentService {
 
     private final SubmissionService submissionService;
 
-    public RoomDto getRoom(Long testID, Long studentId, Device device) {
+    public RoomDto getRoom(Long testID, Long studentId, DeviceType deviceType) {
 
         Submission submission;
 
@@ -25,6 +25,6 @@ public class TestStudentService {
             throw new RoomNotFoundException();
         }
 
-        return new RoomDto(submission.getId(), device);
+        return new RoomDto(submission.getId(), deviceType);
     }
 }

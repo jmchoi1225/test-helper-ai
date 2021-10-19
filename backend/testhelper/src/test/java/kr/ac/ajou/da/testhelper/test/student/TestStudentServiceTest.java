@@ -1,18 +1,19 @@
 package kr.ac.ajou.da.testhelper.test.student;
 
-import kr.ac.ajou.da.testhelper.definition.Device;
+import kr.ac.ajou.da.testhelper.definition.DeviceType;
+import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import kr.ac.ajou.da.testhelper.test.student.dto.RoomDto;
 import kr.ac.ajou.da.testhelper.test.student.exception.RoomNotFoundException;
-import kr.ac.ajou.da.testhelper.student.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -42,17 +43,32 @@ class TestStudentServiceTest {
     }
 
     @Test
-    void getRoom_success() {
+    void getRoom_isPC_success() {
         //given
 
         when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
 
         //when
-        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), Device.PC);
+        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.PC);
 
         //then
-        assertEquals(Device.PC, room.getDevice());
-        assertEquals("1",room.getName());
+        assertEquals(DeviceType.PC, room.getDeviceType());
+        assertEquals(submission.getId().toString(),room.getName());
+
+    }
+
+    @Test
+    void getRoom_isMobile_success() {
+        //given
+
+        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
+
+        //when
+        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.MO);
+
+        //then
+        assertEquals(DeviceType.MO, room.getDeviceType());
+        assertEquals(submission.getId().toString(),room.getName());
 
     }
 
@@ -64,7 +80,7 @@ class TestStudentServiceTest {
 
         //when
         assertThrows(RoomNotFoundException.class, ()->{
-            RoomDto room = this.testStudentService.getRoom(testId, student.getId(), Device.PC);
+            RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.PC);
         });
 
         //then

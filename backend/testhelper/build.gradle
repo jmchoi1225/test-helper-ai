@@ -43,6 +43,11 @@ dependencies {
 	implementation 'org.hibernate:hibernate-entitymanager:4.1.7.Final'
 
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
+
+	// mobile detection
+	implementation 'org.springframework.boot:spring-boot-starter-mobile:1.5.22.RELEASE'
+
+
 }
 
 test {
