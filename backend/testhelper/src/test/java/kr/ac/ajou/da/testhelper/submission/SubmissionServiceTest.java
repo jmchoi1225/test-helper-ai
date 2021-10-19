@@ -1,5 +1,6 @@
 package kr.ac.ajou.da.testhelper.submission;
 
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,8 @@ import org.mockito.Mock;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,7 +25,7 @@ class SubmissionServiceTest {
 
     private Long testId = 1L;
     private Long studentId = 1L;
-    private Submission submission = new Submission(1L, studentId, testId);
+    private Submission submission = new Submission(1L, studentId, testId, VerificationStatus.PENDING);
 
 
     @BeforeEach

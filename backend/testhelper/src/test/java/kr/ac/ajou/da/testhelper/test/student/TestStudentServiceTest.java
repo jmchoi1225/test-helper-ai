@@ -1,6 +1,7 @@
 package kr.ac.ajou.da.testhelper.test.student;
 
 import kr.ac.ajou.da.testhelper.definition.DeviceType;
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
@@ -39,7 +40,7 @@ class TestStudentServiceTest {
         this.testStudentService = new TestStudentService(submissionService);
 
         this.student = new Student(1L, "test", "201820000", "email@ajou.ac.kr");
-        this.submission = new Submission(1L, student.getId(), testId);
+        this.submission = new Submission(1L, student.getId(), testId, VerificationStatus.PENDING);
     }
 
     @Test

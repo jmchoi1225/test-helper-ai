@@ -1,6 +1,7 @@
 package kr.ac.ajou.da.testhelper.submission;
 
 
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,4 +22,13 @@ public class Submission {
     @Column(nullable = false)
     private Long testId;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VerificationStatus verified;
+
+    public void updateVerified(boolean verified) {
+        this.setVerified(verified
+                ? VerificationStatus.SUCCESS
+                : VerificationStatus.REJECTED);
+    }
 }
