@@ -3,21 +3,15 @@ import { Route } from 'react-router-dom';
 import Tests from './Tests'
 import Main from './Main'
 import NavBar from './NavBar'
-import TeststudentPre from './TeststudentPre'
+import TestStudentPre from './TestStudentPre'
 
 function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
-      <Route exact path="/">
-        <Main></Main>
-      </Route>
-      <Route exact path="/tests">
-        <Tests></Tests>
-      </Route>
-      <Route path="/tests/students">
-        <TeststudentPre></TeststudentPre>
-      </Route>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/tests" component={Tests} />
+      <Route path="/tests/students" component={TestStudentPre} / >
     </div>
   );
 }
