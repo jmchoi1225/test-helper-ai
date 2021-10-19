@@ -32,9 +32,28 @@ AmazonS3FullAccess
 IAM 사용자의 access key, secret key, region name을 입력한다. 
 
 cf ) configure 확인하는 방법 
-`$ aws configure list`
+`$ aws configure list --profile {이름}`
 
 <br />
+
+##### 계정 스위칭하기 
+(mac ver.)
+1. ~/.zshrc에서 환경설정 변경 
+```bash
+$ vi ~/.zshrc
+```
+<br />
+
+2. 다음 명령어 작성 
+```bash
+export AWS_DEFAULT_PROFILE={사용할 user }
+```
+
+<br />
+3. 새로고침
+```bash
+$ source ~/.zshrc
+```
 
 #### 접근 가능한 S3 확인하기
 AWS rekognition 수행 시 접근할 S3 bucket 정보가 뜬다면 AWS boto를 이용할 준비가 완료된 것이다 !  
