@@ -3,7 +3,7 @@ package kr.ac.ajou.da.testhelper.test.student;
 import kr.ac.ajou.da.testhelper.aws.credentials.AWSTemporaryCredentialService;
 import kr.ac.ajou.da.testhelper.definition.Device;
 import kr.ac.ajou.da.testhelper.test.student.dto.GetTestStudentRoomResDto;
-import kr.ac.ajou.da.testhelper.student.Student;
+import kr.ac.ajou.da.testhelper.test.student.dto.RoomDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +24,12 @@ public class TestStudentController {
 
         //TODO : 로그인 기능 추가 후 해당 대학생이 맞는 지 validation 필요
 
+
+        RoomDto room = testStudentService.getRoom(testID, studentID, Device.PC);
+
         return ResponseEntity.ok(new GetTestStudentRoomResDto(
                 temporaryCredentialService.createTemporaryCredential()
-                ,testStudentService.getRoom(
-                        testID,
-                        new Student(1L, "test","201820000", "email@ajou.ac.kr"),
-                        Device.PC)));
+                , room));
 
     }
 }

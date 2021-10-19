@@ -20,17 +20,12 @@ spring:
         dialect: org.hibernate.dialect.MariaDBDialect
         show_sql: true #하이버네이트가 실행하는 모든 SQL문을 콘솔로 출력해 준다.
         format_sql: true #콘솔에 출력되는 JPA 실행 쿼리를 가독성있게 표현한다.
-        use_sql_comments: true #디버깅이 용이하도록 SQL문 이외에 추가적인 정보를 출력해 준다.
+        use_sql_comments: false #디버깅이 용이하도록 SQL문 이외에 추가적인 정보를 출력해 준다.
+        physical_naming_strategy: kr.ac.ajou.da.testhelper.common.database.naming.DBNamingStrategy
 
 mybatis: #Mybatis 설정
   mapper-locations: mapper/**/*.xml
 
-log4jdbc: #log4jdbc 설정
-  spylogdelegator:
-    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
-  dump:
-    sql:
-      maxlinelength: 0
 
 --- #local 환경
 spring:

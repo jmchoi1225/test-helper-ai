@@ -28,22 +28,27 @@ class TestStudentServiceTest {
 
     private Student student;
 
+    private Submission submission;
+
+    private Long testId = 1L;
+
     @BeforeEach
     void init(){
         this.submissionService = mock(SubmissionService.class);
         this.testStudentService = new TestStudentService(submissionService);
 
         this.student = new Student(1L, "test", "201820000", "email@ajou.ac.kr");
+        this.submission = new Submission(1L, student.getId(), testId);
     }
 
     @Test
     void getRoom_success() {
         //given
 
-        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(new Submission(1L));
+        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
 
         //when
-        RoomDto room = this.testStudentService.getRoom(1L, student, Device.PC);
+        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), Device.PC);
 
         //then
         assertEquals(Device.PC, room.getDevice());
@@ -59,7 +64,7 @@ class TestStudentServiceTest {
 
         //when
         assertThrows(RoomNotFoundException.class, ()->{
-            RoomDto room = this.testStudentService.getRoom(1L, student, Device.PC);
+            RoomDto room = this.testStudentService.getRoom(testId, student.getId(), Device.PC);
         });
 
         //then
