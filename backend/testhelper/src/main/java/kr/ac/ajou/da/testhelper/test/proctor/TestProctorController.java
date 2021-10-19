@@ -1,8 +1,8 @@
 package kr.ac.ajou.da.testhelper.test.proctor;
 
+import kr.ac.ajou.da.testhelper.account.Account;
 import kr.ac.ajou.da.testhelper.aws.credentials.AWSTemporaryCredentialService;
 import kr.ac.ajou.da.testhelper.test.proctor.dto.PostTestStudentRoomResDto;
-import kr.ac.ajou.da.testhelper.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +23,7 @@ public class TestProctorController {
 
         return ResponseEntity.ok(new PostTestStudentRoomResDto(
                 awsTemporaryCredentialService.createTemporaryCredential(),
-                testProctorService.createRoomsForStudents(testID, new User())
+                testProctorService.createRoomsForStudents(testID, new Account())
         ));
     }
 }

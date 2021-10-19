@@ -3,8 +3,10 @@ package kr.ac.ajou.da.testhelper.test.student;
 import kr.ac.ajou.da.testhelper.definition.Device;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
+import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import kr.ac.ajou.da.testhelper.test.student.dto.RoomDto;
-import kr.ac.ajou.da.testhelper.user.User;
+import kr.ac.ajou.da.testhelper.test.student.exception.RoomNotFoundException;
+import kr.ac.ajou.da.testhelper.student.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,19 +26,20 @@ class TestStudentServiceTest {
     @Mock
     private SubmissionService submissionService;
 
-    private User student = new User();
+    private Student student;
 
     @BeforeEach
     void init(){
         this.submissionService = mock(SubmissionService.class);
         this.testStudentService = new TestStudentService(submissionService);
+
+        this.student = new Student(1L, "test", "201820000", "email@ajou.ac.kr");
     }
 
     @Test
-    void getRoom_정상() {
+    void getRoom_success() {
         //given
 
-        //testID와 student에 해당하는 SUBMISSION 가져오기
         when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(new Submission(1L));
 
         //when
@@ -45,6 +48,21 @@ class TestStudentServiceTest {
         //then
         assertEquals(Device.PC, room.getDevice());
         assertEquals("1",room.getName());
+
+    }
+
+    @Test
+    void getRoom_roomNotFoundForTestIDAndStudent_then_throwRoomNotFoundException() {
+        //given
+
+        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenThrow(new SubmissionNotFoundException());
+
+        //when
+        assertThrows(RoomNotFoundException.class, ()->{
+            RoomDto room = this.testStudentService.getRoom(1L, student, Device.PC);
+        });
+
+        //then
 
     }
 }

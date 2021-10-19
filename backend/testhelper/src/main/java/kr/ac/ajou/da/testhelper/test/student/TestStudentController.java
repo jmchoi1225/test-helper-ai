@@ -3,7 +3,7 @@ package kr.ac.ajou.da.testhelper.test.student;
 import kr.ac.ajou.da.testhelper.aws.credentials.AWSTemporaryCredentialService;
 import kr.ac.ajou.da.testhelper.definition.Device;
 import kr.ac.ajou.da.testhelper.test.student.dto.GetTestStudentRoomResDto;
-import kr.ac.ajou.da.testhelper.user.User;
+import kr.ac.ajou.da.testhelper.student.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,10 @@ public class TestStudentController {
 
         return ResponseEntity.ok(new GetTestStudentRoomResDto(
                 temporaryCredentialService.createTemporaryCredential()
-                ,testStudentService.getRoom(testID, new User(), Device.PC)));
+                ,testStudentService.getRoom(
+                        testID,
+                        new Student(1L, "test","201820000", "email@ajou.ac.kr"),
+                        Device.PC)));
 
     }
 }
