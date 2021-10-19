@@ -24,7 +24,7 @@ def detect_text(path, bucket,studentID):
     
 def main():
     bucket="testhelper"
-    path="test/" + os.environ['S3_TEMP_TEST'] + "/submission/" + os.environ['S3_TEMP_STUDENT'] + "/id_card.jpg"
+    path="test/" + os.environ['S3_TEMP_TEST'] + "/submission/" + os.environ['S3_TEMP_STUDENT'] + "/student_card.jpg"
     student_id=os.environ['STUDENT_ID']
     response =detect_text(path, bucket,student_id)
     if response :
