@@ -26,11 +26,13 @@ def identification():
     student_id = args['student_id']
     
     if not test_id or not student_id :
+        print("no test_id or student_id")
         return json.dumps({'result' : False})
 
     idcard_path="test/" + test_id + "/submission/" + student_id + "/student_card.jpg"
-    face_path = os.environ['S3_ROOT'] + test_id + "/submission/" + student_id + "/face.jpg"
-    bucket=os.environ['S3_BUCKET']
+    face_path = "test/"  + test_id + "/submission/" + student_id + "/face.jpg"
+    bucket="testhelper"
+
 
     result_text = False
     try : 
