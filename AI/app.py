@@ -1,19 +1,15 @@
 from student_identification.detectText import detect_text
 from student_identification.compareFace import compare_faces
 
-from dotenv import load_dotenv
-load_dotenv()
-
 from flask import Flask, redirect, url_for, request, render_template
 from flask_restful import reqparse
 from flask_cors import CORS
 
 import json
-import os
+import s3path
 
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route('/identification',methods=['POST'])
 def identification():
@@ -29,9 +25,9 @@ def identification():
         print("no test_id or student_id")
         return json.dumps({'result' : False})
 
-    idcard_path="test/" + test_id + "/submission/" + student_id + "/student_card.jpg"
-    face_path = "test/"  + test_id + "/submission/" + student_id + "/face.jpg"
-    bucket="testhelper"
+    idcard_path= s3path.S3_ROOT+ test_id + s3path.S3_STUDENT_FOLDER+ student_id + s3path.S3_STUDENT_CARD
+    face_path = s3path.S3_ROOT+ test_id + s3path.S3_STUDENT_FOLDER+ student_id + s3path.S3_FACE
+    bucket=s3path.S3_BUCKET
 
 
     result_text = detect_text(bucket, idcard_path,student_id)
