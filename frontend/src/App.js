@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Tests from './Tests'
 import Main from './Main'
 import NavBar from './NavBar'
+import Kinesis from './kinesisVideo/Home'
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       </Route>
       <Route path="/tests">
         <Tests></Tests>
+      </Route>
+      <Route path="/kinesis">
+      <Kinesis></Kinesis>
       </Route>
     </div>
   );
