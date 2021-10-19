@@ -23,7 +23,7 @@ public class TestProctorController {
 
         return ResponseEntity.ok(new PostTestStudentRoomResDto(
                 awsTemporaryCredentialService.createTemporaryCredential(),
-                testProctorService.createRoomsForStudents(testID, new Account())
+                testProctorService.createRoomsForStudents(testID, new Account(1L))
         ));
     }
 }
