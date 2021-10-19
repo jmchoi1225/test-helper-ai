@@ -14,6 +14,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route('/identification',methods=['POST'])
 def identification():
     parser = reqparse.RequestParser()
@@ -27,18 +28,26 @@ def identification():
     if not test_id or not student_id :
         return json.dumps({'result' : False})
 
-    idcard_path=os.environ['S3_ROOT'] + test_id + "/submission/" + student_id + "/student_card.jpg"
+    idcard_path="test/" + test_id + "/submission/" + student_id + "/student_card.jpg"
     face_path = os.environ['S3_ROOT'] + test_id + "/submission/" + student_id + "/face.jpg"
     bucket=os.environ['S3_BUCKET']
 
-    
     result_text = False
-    result_text = detect_text(bucket, idcard_path,student_id)
+    try : 
+        result_text = detect_text(bucket, idcard_path,student_id)
+    except :
+        print("AWS 에 접근 시 오류가 발생하였습니다! ")
+        return json.dumps({'result': False})
+    
     if not result_text :
         return json.dumps({'result': False})
 
     result_face = False
-    result_face =compare_faces(bucket,idcard_path,face_path)
+    try :
+        result_face =compare_faces(bucket,idcard_path,face_path)
+    except :
+        print("AWS 에 접근 시 오류가 발생하였습니다! ")
+        return json.dumps({'result' : False})
         
     return json.dumps({'result' : result_face})
 
