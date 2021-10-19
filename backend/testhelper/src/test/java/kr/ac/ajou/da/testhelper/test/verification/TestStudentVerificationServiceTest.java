@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class TestStudentVerificationServiceTest {
 
     private final Long testId = 1L;
-    private final Long proctorId = 1L;
+    private final Long supervisedBy = 1L;
     private final Long studentId = 1L;
     private final List<Submission> submissions = new LinkedList<>();
     @InjectMocks
@@ -34,8 +34,8 @@ class TestStudentVerificationServiceTest {
         submissionService = mock(SubmissionService.class);
         testStudentVerificationService = new TestStudentVerificationService(submissionService);
 
-        submissions.add(new Submission(1L, 1L, testId, VerificationStatus.PENDING));
-        submission = new Submission(1L, studentId, testId, VerificationStatus.PENDING);
+        submissions.add(new Submission(1L, 1L, testId, VerificationStatus.PENDING, supervisedBy));
+        submission = new Submission(1L, studentId, testId, VerificationStatus.PENDING, 1L);
     }
 
     @Test
@@ -44,7 +44,7 @@ class TestStudentVerificationServiceTest {
         when(submissionService.getByTestIDAndSupervisedBy(anyLong(), anyLong())).thenReturn(submissions);
 
         //when
-        List<GetTestStudentVerificationResDto> res = testStudentVerificationService.getList(testId, proctorId);
+        List<GetTestStudentVerificationResDto> res = testStudentVerificationService.getList(testId, supervisedBy);
 
         //then
         assertEquals(submissions.size(), res.size());

@@ -26,6 +26,9 @@ public class Submission {
     @Enumerated(EnumType.STRING)
     private VerificationStatus verified;
 
+    @Column(nullable = false)
+    private Long supervisedBy;
+
     public void updateVerified(boolean verified) {
         this.setVerified(verified
                 ? VerificationStatus.SUCCESS

@@ -6,6 +6,7 @@ import kr.ac.ajou.da.testhelper.test.verification.dto.GetTestStudentVerification
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class TestStudentVerificationService {
 
     }
 
+    @Transactional
     public boolean update(Long testId, Long studentId, Boolean verified) {
 
         Submission submission = submissionService.getByTestIDAndStudentID(testId, studentId);

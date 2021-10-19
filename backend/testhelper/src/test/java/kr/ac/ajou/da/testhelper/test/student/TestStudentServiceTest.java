@@ -40,7 +40,7 @@ class TestStudentServiceTest {
         this.testStudentService = new TestStudentService(submissionService);
 
         this.student = new Student(1L, "test", "201820000", "email@ajou.ac.kr");
-        this.submission = new Submission(1L, student.getId(), testId, VerificationStatus.PENDING);
+        this.submission = new Submission(1L, student.getId(), testId, VerificationStatus.PENDING, 1L);
     }
 
     @Test

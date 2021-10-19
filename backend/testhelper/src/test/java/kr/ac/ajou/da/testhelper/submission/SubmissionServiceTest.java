@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,15 +25,19 @@ class SubmissionServiceTest {
     @Mock
     private SubmissionRepository submissionRepository;
 
-    private Long testId = 1L;
-    private Long studentId = 1L;
-    private Submission submission = new Submission(1L, studentId, testId, VerificationStatus.PENDING);
+    private final long testId = 1L;
+    private final long studentId = 1L;
+    private final long supervisedBy = 1L;
+    private final Submission submission = new Submission(1L, studentId, testId, VerificationStatus.PENDING, supervisedBy);
+    private final List<Submission> submissions = new LinkedList<>();
 
 
     @BeforeEach
-    void init(){
+    void init() {
         submissionRepository = mock(SubmissionRepository.class);
         submissionService = new SubmissionService(submissionRepository);
+
+        submissions.add(new Submission(1L, 1L, testId, VerificationStatus.PENDING, supervisedBy));
     }
 
     @Test
@@ -53,11 +59,24 @@ class SubmissionServiceTest {
         when(submissionRepository.findByTestIdAndStudentId(anyLong(), anyLong())).thenReturn(Optional.empty());
 
         //when
-        assertThrows(SubmissionNotFoundException.class, ()->{
+        assertThrows(SubmissionNotFoundException.class, () -> {
             Submission submission = submissionService.getByTestIDAndStudentID(testId, studentId);
         });
 
         //then
 
+    }
+
+    @Test
+    void getByTestIDAndSupervisedBy_success() {
+        //given
+
+        when(submissionRepository.findByTestIdAndSupervisedBy(anyLong(), anyLong())).thenReturn(submissions);
+
+        //when
+        List<Submission> res = submissionService.getByTestIDAndSupervisedBy(testId, supervisedBy);
+
+        //then
+        assertEquals(submissions, res);
     }
 }

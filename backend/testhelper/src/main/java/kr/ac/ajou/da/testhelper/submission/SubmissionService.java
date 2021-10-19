@@ -4,7 +4,7 @@ import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -13,6 +13,7 @@ public class SubmissionService {
 
     private final SubmissionRepository submissionRepository;
 
+    @Transactional
     public Submission getByTestIDAndStudentID(Long testID, Long studentID) {
 
         return submissionRepository.findByTestIdAndStudentId(testID, studentID)
@@ -20,7 +21,8 @@ public class SubmissionService {
 
     }
 
-    public List<Submission> getByTestIDAndSupervisedBy(long testId, long supervisedBy) {
-        return new LinkedList<>();
+    @Transactional
+    public List<Submission> getByTestIDAndSupervisedBy(Long testId, Long supervisedBy) {
+        return submissionRepository.findByTestIdAndSupervisedBy(testId, supervisedBy);
     }
 }
