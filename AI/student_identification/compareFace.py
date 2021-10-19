@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def compare_faces(src_path,tar_path,bucket):
+def compare_faces(bucket,src_path,tar_path):
     client=boto3.client('rekognition')
     
     SIMILARITY_THRESHOLD = 75
@@ -23,7 +23,7 @@ def main():
     tar_path = "test/"+ os.environ['S3_TEMP_TEST'] + "/submission/" + os.environ['S3_TEMP_STUDENT'] + "/face.jpg"
     # tar_path = os.environ['S3_ROOT'] + os.environ['S3_TEMP_TEST'] + "/student/" + os.environ['S3_TEMP_STUDENT'] + "/fake_face.jpg"
     bucket= "testhelper"
-    response =compare_faces(src_path,tar_path, bucket)
+    response =compare_faces(bucket,src_path,tar_path)
     if response :
         print("Result : True")
     else :
