@@ -1,8 +1,8 @@
 package kr.ac.ajou.da.testhelper.test.proctor;
 
+import kr.ac.ajou.da.testhelper.account.Account;
 import kr.ac.ajou.da.testhelper.test.proctor.dto.StudentDto;
 import kr.ac.ajou.da.testhelper.test.proctor.dto.StudentRoomDto;
-import kr.ac.ajou.da.testhelper.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class TestProctorService {
-    public List<StudentRoomDto> createRoomsForStudents(Long testID, User proctor) {
+    public List<StudentRoomDto> createRoomsForStudents(Long testID, Account proctor) {
 
         /**
          *  1. 시험 감독할 대학생 목록 조회
@@ -19,7 +19,7 @@ public class TestProctorService {
          */
 
         List<StudentRoomDto> studentRooms = new LinkedList<>();
-        studentRooms.add(new StudentRoomDto(new StudentDto(1L,"name","201820000"),"room"));
+        studentRooms.add(new StudentRoomDto(new StudentDto(1L, "name", "201820000"), "room"));
 
         return studentRooms;
     }
