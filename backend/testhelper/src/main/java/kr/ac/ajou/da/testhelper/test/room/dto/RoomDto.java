@@ -1,4 +1,4 @@
-package kr.ac.ajou.da.testhelper.test.student.dto;
+package kr.ac.ajou.da.testhelper.test.room.dto;
 
 import kr.ac.ajou.da.testhelper.definition.DeviceType;
 import lombok.AccessLevel;

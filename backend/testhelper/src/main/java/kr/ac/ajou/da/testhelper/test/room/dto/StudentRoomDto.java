@@ -1,4 +1,4 @@
-package kr.ac.ajou.da.testhelper.test.proctor.dto;
+package kr.ac.ajou.da.testhelper.test.room.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

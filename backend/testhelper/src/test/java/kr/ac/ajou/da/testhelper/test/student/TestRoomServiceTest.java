@@ -5,8 +5,9 @@ import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
-import kr.ac.ajou.da.testhelper.test.student.dto.RoomDto;
-import kr.ac.ajou.da.testhelper.test.student.exception.RoomNotFoundException;
+import kr.ac.ajou.da.testhelper.test.room.TestRoomService;
+import kr.ac.ajou.da.testhelper.test.room.dto.RoomDto;
+import kr.ac.ajou.da.testhelper.test.room.exception.RoomNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,10 +20,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-class TestStudentServiceTest {
+class TestRoomServiceTest {
 
     @InjectMocks
-    private TestStudentService testStudentService;
+    private TestRoomService testRoomService;
 
     @Mock
     private SubmissionService submissionService;
@@ -36,7 +37,7 @@ class TestStudentServiceTest {
     @BeforeEach
     void init(){
         this.submissionService = mock(SubmissionService.class);
-        this.testStudentService = new TestStudentService(submissionService);
+        this.testRoomService = new TestRoomService(submissionService);
 
         this.student = new Student(1L, "test", "201820000", "email@ajou.ac.kr");
         this.submission = new Submission(1L, student.getId(), testId);
@@ -49,7 +50,7 @@ class TestStudentServiceTest {
         when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
 
         //when
-        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.PC);
+        RoomDto room = this.testRoomService.getRoom(testId, student.getId(), DeviceType.PC);
 
         //then
         assertEquals(DeviceType.PC, room.getDeviceType());
@@ -64,7 +65,7 @@ class TestStudentServiceTest {
         when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
 
         //when
-        RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.MO);
+        RoomDto room = this.testRoomService.getRoom(testId, student.getId(), DeviceType.MO);
 
         //then
         assertEquals(DeviceType.MO, room.getDeviceType());
@@ -80,7 +81,7 @@ class TestStudentServiceTest {
 
         //when
         assertThrows(RoomNotFoundException.class, ()->{
-            RoomDto room = this.testStudentService.getRoom(testId, student.getId(), DeviceType.PC);
+            RoomDto room = this.testRoomService.getRoom(testId, student.getId(), DeviceType.PC);
         });
 
         //then

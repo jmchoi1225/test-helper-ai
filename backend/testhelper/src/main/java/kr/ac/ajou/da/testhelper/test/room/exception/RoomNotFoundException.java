@@ -1,4 +1,4 @@
-package kr.ac.ajou.da.testhelper.test.student.exception;
+package kr.ac.ajou.da.testhelper.test.room.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
