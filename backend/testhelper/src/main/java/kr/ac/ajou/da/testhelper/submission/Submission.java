@@ -1,6 +1,8 @@
 package kr.ac.ajou.da.testhelper.submission;
 
 
+import kr.ac.ajou.da.testhelper.student.Student;
+import kr.ac.ajou.da.testhelper.test.Test;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,10 +17,12 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long studentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Student student;
 
-    @Column(nullable = false)
-    private Long testId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Test test;
 
 }

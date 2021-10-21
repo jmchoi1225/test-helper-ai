@@ -12,6 +12,7 @@ import kr.ac.ajou.da.testhelper.test.room.exception.RoomNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class TestRoomService {
 
     private final SubmissionService submissionService;
 
+    @Transactional
     public RoomDto getRoom(Long testID, Long studentId, DeviceType deviceType) {
 
         Submission submission;
@@ -31,7 +33,7 @@ public class TestRoomService {
             throw new RoomNotFoundException();
         }
 
-        return new RoomDto(submission.getId(), deviceType);
+        return new RoomDto(submission, deviceType);
     }
 
     public List<StudentRoomDto> createRoomsForStudents(Long testID, Account supevisedBy) {
