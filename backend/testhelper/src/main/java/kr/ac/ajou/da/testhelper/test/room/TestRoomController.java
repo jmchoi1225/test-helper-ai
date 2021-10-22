@@ -28,7 +28,7 @@ public class TestRoomController {
 
         return ResponseEntity.ok(new PostTestStudentRoomResDto(
                 temporaryCredentialService.createTemporaryCredential(),
-                testRoomService.createRoomsForStudents(testID, new Account())
+                testRoomService.createRoomsForStudents(testID, new Account(1L))
         ));
     }
 

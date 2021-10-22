@@ -1,6 +1,7 @@
 package kr.ac.ajou.da.testhelper.submission;
 
 
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.test.Test;
 import lombok.*;
@@ -25,4 +26,16 @@ public class Submission {
     @JoinColumn(nullable = false)
     private Test test;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VerificationStatus verified;
+
+    @Column(nullable = false)
+    private Long supervisedBy;
+
+    public void updateVerified(boolean verified) {
+        this.setVerified(verified
+                ? VerificationStatus.SUCCESS
+                : VerificationStatus.REJECTED);
+    }
 }

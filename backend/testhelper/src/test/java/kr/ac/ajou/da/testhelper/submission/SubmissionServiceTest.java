@@ -1,6 +1,7 @@
 package kr.ac.ajou.da.testhelper.submission;
 
 import kr.ac.ajou.da.testhelper.course.Course;
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import kr.ac.ajou.da.testhelper.test.definition.TestType;
@@ -10,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +29,7 @@ class SubmissionServiceTest {
     private SubmissionRepository submissionRepository;
 
 
+
     private Course course = new Course(1L, "name");
     private final kr.ac.ajou.da.testhelper.test.Test test = new kr.ac.ajou.da.testhelper.test.Test(1L,
             TestType.MID,
@@ -33,12 +37,16 @@ class SubmissionServiceTest {
             LocalDateTime.now(),
             course);
     private final Student student = new Student(1L, "name", "201820000", "email@ajou.ac.kr");
-    private final Submission submission = new Submission(1L, student, test);
+    private final Long supervisedBy = 1L;
+    private final Submission submission = new Submission(1L, student, test, VerificationStatus.PENDING, supervisedBy);
+    private final List<Submission> submissions = new LinkedList<>();
 
     @BeforeEach
     void init() {
         submissionRepository = mock(SubmissionRepository.class);
         submissionService = new SubmissionService(submissionRepository);
+
+        submissions.add(new Submission(1L, student, test, VerificationStatus.PENDING, supervisedBy));
     }
 
     @Test
@@ -66,5 +74,18 @@ class SubmissionServiceTest {
 
         //then
 
+    }
+
+    @Test
+    void getByTestIDAndSupervisedBy_success() {
+        //given
+
+        when(submissionRepository.findByTestIdAndSupervisedBy(anyLong(), anyLong())).thenReturn(submissions);
+
+        //when
+        List<Submission> res = submissionService.getByTestIDAndSupervisedBy(test.getId(), supervisedBy);
+
+        //then
+        assertEquals(submissions, res);
     }
 }
