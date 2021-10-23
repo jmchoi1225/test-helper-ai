@@ -3,6 +3,8 @@ package kr.ac.ajou.da.testhelper.aws.s3;
 import java.net.URL;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.HttpMethod;
@@ -16,13 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class PreSignedURLService {
-
-	public String getPreSignedURL(String objectKey, long expirationTime, String bucketName, HttpMethod method) {
-		log.info(objectKey);
-		AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+	private AmazonS3 s3Client;
+	
+	@PostConstruct
+	public void initAWSS3Client() {
+		log.info("initAWSS3Client");
+		s3Client = AmazonS3ClientBuilder.standard()
 				.withRegion(Regions.US_EAST_2)
 				.build();
-		
+	}
+
+	public String getPreSignedURL(String objectKey, long expirationTime, String bucketName, HttpMethod method) {
+		log.info(objectKey);		
 	    GeneratePresignedUrlRequest generatePresignedUrlRequest = 
 	    		new GeneratePresignedUrlRequest(bucketName, objectKey)
 						.withMethod(method)
