@@ -14,16 +14,16 @@ public class PreSignedURLController {
 	@Autowired
 	private PreSignedURLService preSignedURLService;
 	
-	private static final long expiration_time = 1000 * 60 * 3; // 3분;
-	private static final String bucket_name = "testhelper";
+	private static final long EXPIRATION_TIME = 1000 * 60 * 3; // 3분;
+	private static final String BUCKET_NAME = "testhelper";
 
 	@GetMapping(path="/s3-upload-url")
 	public String GetS3UrlUpload(@RequestParam String objectKey) {
-		return preSignedURLService.getPreSignedURL(objectKey, expiration_time, bucket_name, HttpMethod.PUT);
+		return preSignedURLService.getPreSignedURL(objectKey, EXPIRATION_TIME, BUCKET_NAME, HttpMethod.PUT);
 	}
 	
 	@GetMapping(path="/s3-download-url")
 	public String GetS3UrlDownload(@RequestParam String objectKey)  throws IOException {
-		return preSignedURLService.getPreSignedURL(objectKey, expiration_time, bucket_name, HttpMethod.GET);
+		return preSignedURLService.getPreSignedURL(objectKey, EXPIRATION_TIME, BUCKET_NAME, HttpMethod.GET);
 	}
 }
