@@ -1,0 +1,28 @@
+package kr.ac.ajou.da.testhelper.submission;
+
+
+import kr.ac.ajou.da.testhelper.student.Student;
+import kr.ac.ajou.da.testhelper.test.Test;
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@Setter(AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Submission {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Student student;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Test test;
+
+}
