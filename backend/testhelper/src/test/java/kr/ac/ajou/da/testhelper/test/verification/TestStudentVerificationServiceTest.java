@@ -28,18 +28,16 @@ class TestStudentVerificationServiceTest {
     @Mock
     private SubmissionService submissionService;
 
-    private Course course = new Course(1L, "name");
+    private final Course course = new Course(1L, "name");
     private final Student student = new Student(1L, "name", "201820000", "email@ajou.ac.kr");
     private final kr.ac.ajou.da.testhelper.test.Test test = new kr.ac.ajou.da.testhelper.test.Test(1L,
             TestType.MID,
             LocalDateTime.now(),
             LocalDateTime.now(),
             course);
-    private final long supervisedBy = 1L;
+    private final Long supervisedBy = 1L;
     private final Submission submission = new Submission(1L, student, test, VerificationStatus.PENDING, supervisedBy);
     private final List<Submission> submissions = new ArrayList<>();
-
-
 
     @BeforeEach
     void init() {
