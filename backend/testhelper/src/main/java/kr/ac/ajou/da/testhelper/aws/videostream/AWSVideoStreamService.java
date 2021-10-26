@@ -19,6 +19,12 @@ public class AWSVideoStreamService {
     }
 
     public void createSignalingChannel(String channelName) {
+        try{
+            describeSignalingChannel(channelName);
+            log.info("{} channel exists", channelName);
+            return;
+        }catch (ResourceNotFoundException ignore){}
+
         CreateSignalingChannelRequest req = new CreateSignalingChannelRequest();
         req.setChannelName(channelName);
         req.setChannelType("SINGLE_MASTER");
@@ -27,11 +33,8 @@ public class AWSVideoStreamService {
     }
 
     public void deleteSignalingChannel(String channelName) {
-        DescribeSignalingChannelRequest channelInfoReq = new DescribeSignalingChannelRequest();
-        channelInfoReq.setChannelName(channelName);
-        ChannelInfo channelInfo;
         try {
-            channelInfo = this.kinesisVideoClient.describeSignalingChannel(channelInfoReq).getChannelInfo();
+            ChannelInfo channelInfo = describeSignalingChannel(channelName);
 
             DeleteSignalingChannelRequest req = new DeleteSignalingChannelRequest();
             req.setChannelARN(channelInfo.getChannelARN());
@@ -43,5 +46,11 @@ public class AWSVideoStreamService {
         } catch (Exception ignored) {
             log.info("{} channel doesn't exist", channelName);
         }
+    }
+
+    private ChannelInfo describeSignalingChannel(String channelName) throws ResourceNotFoundException {
+        DescribeSignalingChannelRequest req = new DescribeSignalingChannelRequest();
+        req.setChannelName(channelName);
+        return this.kinesisVideoClient.describeSignalingChannel(req).getChannelInfo();
     }
 }
