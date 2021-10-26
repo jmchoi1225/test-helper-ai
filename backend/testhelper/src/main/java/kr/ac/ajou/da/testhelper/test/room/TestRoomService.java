@@ -45,7 +45,9 @@ public class TestRoomService {
          */
 
         List<StudentRoomDto> studentRooms = new LinkedList<>();
-        studentRooms.add(new StudentRoomDto(new StudentDto(1L, "name", "201820000"), "room"));
+        studentRooms.add(new StudentRoomDto("room1", new StudentDto(1L, "name", "201820001")));
+        studentRooms.add(new StudentRoomDto("room2", new StudentDto(2L, "name", "201820002")));
+        studentRooms.add(new StudentRoomDto("room3", new StudentDto(3L, "name", "201820003")));
 
         return studentRooms;
     }

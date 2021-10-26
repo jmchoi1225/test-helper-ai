@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class StudentRoomDto {
+    private final String roomId;
     private final StudentDto student;
-    private final String roomID;
 }
