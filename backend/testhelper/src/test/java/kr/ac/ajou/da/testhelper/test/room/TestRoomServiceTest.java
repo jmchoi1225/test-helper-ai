@@ -48,7 +48,7 @@ class TestRoomServiceTest {
 
     @Test
     void getRoom_success() {
-        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
+        when(submissionService.getByTestIdAndStudentId(anyLong(), anyLong())).thenReturn(submission);
 
         //when
         RoomDto room = this.testRoomService.getRoom(test.getId(), student.getId(), DeviceType.PC);
@@ -75,7 +75,7 @@ class TestRoomServiceTest {
     void getRoom_isPC_success() {
         //given
 
-        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
+        when(submissionService.getByTestIdAndStudentId(anyLong(), anyLong())).thenReturn(submission);
 
         //when
         RoomDto room = this.testRoomService.getRoom(test.getId(), student.getId(), DeviceType.PC);
@@ -89,7 +89,7 @@ class TestRoomServiceTest {
     void getRoom_isMobile_success() {
         //given
 
-        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenReturn(submission);
+        when(submissionService.getByTestIdAndStudentId(anyLong(), anyLong())).thenReturn(submission);
 
         //when
         RoomDto room = this.testRoomService.getRoom(test.getId(), student.getId(), DeviceType.MO);
@@ -103,7 +103,7 @@ class TestRoomServiceTest {
     void getRoom_roomNotFoundForTestIDAndStudent_then_throwRoomNotFoundException() {
         //given
 
-        when(submissionService.getByTestIDAndStudentID(anyLong(), anyLong())).thenThrow(new SubmissionNotFoundException());
+        when(submissionService.getByTestIdAndStudentId(anyLong(), anyLong())).thenThrow(new SubmissionNotFoundException());
 
         //when
         assertThrows(RoomNotFoundException.class, () -> {

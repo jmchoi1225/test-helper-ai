@@ -33,8 +33,9 @@ public class TestRoomController {
     @PostMapping("/tests/{testId}/students/room")
     public ResponseEntity<PostTestStudentRoomResDto> postTestStudentRoom(@PathVariable Long testId) {
 
+        Account supervisedBy = new Account(1L);
         Test test = testService.getTest(testId);
-        List<StudentRoomDto> studentRooms = testRoomService.createRoomsForStudents(test.getId(), new Account(1L));
+        List<StudentRoomDto> studentRooms = testRoomService.createRoomsForStudents(test.getId(), supervisedBy.getId());
 
         return ResponseEntity.ok(new PostTestStudentRoomResDto(
                 temporaryCredentialService.createTemporaryCredential(),

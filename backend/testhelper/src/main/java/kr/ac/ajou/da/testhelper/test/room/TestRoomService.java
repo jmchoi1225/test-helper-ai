@@ -1,20 +1,18 @@
 package kr.ac.ajou.da.testhelper.test.room;
 
-import kr.ac.ajou.da.testhelper.account.Account;
 import kr.ac.ajou.da.testhelper.definition.DeviceType;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import kr.ac.ajou.da.testhelper.test.room.dto.RoomDto;
-import kr.ac.ajou.da.testhelper.test.room.dto.StudentDto;
 import kr.ac.ajou.da.testhelper.test.room.dto.StudentRoomDto;
 import kr.ac.ajou.da.testhelper.test.room.exception.RoomNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class TestRoomService {
         Submission submission;
 
         try {
-            submission = submissionService.getByTestIDAndStudentID(testID, studentId);
+            submission = submissionService.getByTestIdAndStudentId(testID, studentId);
         } catch (SubmissionNotFoundException exception) {
             throw new RoomNotFoundException();
         }
@@ -36,7 +34,7 @@ public class TestRoomService {
         return new RoomDto(submission, deviceType);
     }
 
-    public List<StudentRoomDto> createRoomsForStudents(Long testID, Account supevisedBy) {
+    public List<StudentRoomDto> createRoomsForStudents(Long testId, Long supevisedBy) {
 
         /**
          *  1. 시험 감독할 대학생 목록 조회
@@ -44,11 +42,10 @@ public class TestRoomService {
          *  3. 시험 감독 접속을 위한 정보 반환
          */
 
-        List<StudentRoomDto> studentRooms = new LinkedList<>();
-        studentRooms.add(new StudentRoomDto("room1", new StudentDto(1L, "name", "201820001")));
-        studentRooms.add(new StudentRoomDto("room2", new StudentDto(2L, "name", "201820002")));
-        studentRooms.add(new StudentRoomDto("room3", new StudentDto(3L, "name", "201820003")));
+        List<Submission> submissions = submissionService.getByTestIdAndSupervisedBy(testId, supevisedBy);
 
-        return studentRooms;
+        return submissions.stream()
+                .map(StudentRoomDto::new)
+                .collect(Collectors.toList());
     }
 }
