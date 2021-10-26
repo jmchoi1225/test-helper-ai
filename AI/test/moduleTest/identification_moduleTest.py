@@ -5,10 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import sys
-sys.path.append("../../")
-sys.path.append("../../src")
-sys.path.append("./src")
-sys.path.append("./")
+sys.path.extend(["./","../","../../","./src","../src","../../src"])
+
 from student_identification.compareFace import compare_faces
 from student_identification.detectText import detect_text
 import s3path

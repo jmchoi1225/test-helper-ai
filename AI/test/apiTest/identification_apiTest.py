@@ -7,10 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import sys
-sys.path.append("../../")
-sys.path.append("../../src")
-sys.path.append("./src")
-sys.path.append("./")
+sys.path.extend(["./","../","../../","./src","../src","../../src"])
+
 import app
 import s3path
 
