@@ -17,8 +17,8 @@ class UnitTest(unittest.TestCase):
         self.app = app.app.test_client()
         self.studentID = s3path.S3_TEMP_STUDENT_ID
         self.testID = s3path.S3_TEMP_TEST_ID
-        self.fakestudentID = '00000000'
-        self.faketestID = '000000'
+        self.fakestudentID = '0000000a'
+        self.faketestID = '00000a'
         self.right_parameter = {
             'test_id' : self.testID,
             'student_id' : self.studentID

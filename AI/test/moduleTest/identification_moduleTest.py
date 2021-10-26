@@ -15,7 +15,7 @@ class UnitTest(unittest.TestCase):
     def setUp(self):
         self.bucket = s3path.S3_BUCKET
         self.real_studentID = s3path.S3_TEMP_STUDENT_ID
-        self.fake_studentID = '202200000'
+        self.fake_studentID = '20220000a'
         self.src_real_path = s3path.S3_ROOT + s3path.S3_TEMP_TEST_ID + s3path.S3_STUDENT_FOLDER \
                             + s3path.S3_TEMP_STUDENT_ID+ s3path.S3_STUDENT_CARD
         self.tar_real_path = s3path.S3_ROOT + s3path.S3_TEMP_TEST_ID + s3path.S3_STUDENT_FOLDER \
