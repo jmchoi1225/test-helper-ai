@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class TestRoomService {
 
     private final SubmissionService submissionService;
+    private final TestRoomManagingService testRoomManagingService;
 
     @Transactional
     public RoomDto getRoom(Long testID, Long studentId, DeviceType deviceType) {
@@ -37,13 +38,9 @@ public class TestRoomService {
     @Transactional
     public List<StudentRoomDto> createRoomsForStudents(Long testId, Long supevisedBy) {
 
-        /**
-         *  1. 시험 감독할 대학생 목록 조회
-         *  2. 각 대학생을 위한 VideoStream Channel 생성
-         *  3. 시험 감독 접속을 위한 정보 반환
-         */
-
         List<Submission> submissions = submissionService.getByTestIdAndSupervisedBy(testId, supevisedBy);
+
+        submissions.forEach(submission -> testRoomManagingService.createRoom(submission.resolveRoomId()));
 
         return submissions.stream()
                 .map(StudentRoomDto::new)

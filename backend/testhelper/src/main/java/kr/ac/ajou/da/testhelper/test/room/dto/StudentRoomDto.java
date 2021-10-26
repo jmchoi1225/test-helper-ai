@@ -11,7 +11,7 @@ public class StudentRoomDto {
     private final StudentDto student;
 
     public StudentRoomDto(Submission submission){
-        this.roomId = submission.getId().toString();
+        this.roomId = submission.resolveRoomId();
         this.student = new StudentDto(submission.getStudent());
     }
 }
