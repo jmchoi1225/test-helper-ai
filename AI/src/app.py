@@ -5,6 +5,9 @@ from flask import Flask, redirect, url_for, request, render_template
 from flask_restful import reqparse
 from flask_cors import CORS
 
+import sys
+sys.path.append("../")
+
 import json
 import s3path
 
