@@ -8,6 +8,7 @@ import kr.ac.ajou.da.testhelper.test.TestService;
 import kr.ac.ajou.da.testhelper.test.room.dto.GetTestStudentRoomResDto;
 import kr.ac.ajou.da.testhelper.test.room.dto.PostTestStudentRoomResDto;
 import kr.ac.ajou.da.testhelper.test.room.dto.RoomDto;
+import kr.ac.ajou.da.testhelper.test.room.dto.StudentRoomDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,11 +34,12 @@ public class TestRoomController {
     public ResponseEntity<PostTestStudentRoomResDto> postTestStudentRoom(@PathVariable Long testId) {
 
         Test test = testService.getTest(testId);
+        List<StudentRoomDto> studentRooms = testRoomService.createRoomsForStudents(test.getId(), new Account(1L));
 
         return ResponseEntity.ok(new PostTestStudentRoomResDto(
                 temporaryCredentialService.createTemporaryCredential(),
                 test,
-                testRoomService.createRoomsForStudents(test.getId(), new Account(1L))
+                studentRooms
         ));
     }
 
