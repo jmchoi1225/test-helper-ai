@@ -34,6 +34,7 @@ public class TestRoomService {
         return new RoomDto(submission, deviceType);
     }
 
+    @Transactional
     public List<StudentRoomDto> createRoomsForStudents(Long testId, Long supevisedBy) {
 
         /**
