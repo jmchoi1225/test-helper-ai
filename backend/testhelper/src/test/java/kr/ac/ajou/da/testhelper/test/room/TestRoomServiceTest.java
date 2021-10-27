@@ -1,13 +1,13 @@
-package kr.ac.ajou.da.testhelper.test.student;
+package kr.ac.ajou.da.testhelper.test.room;
 
 import kr.ac.ajou.da.testhelper.course.Course;
 import kr.ac.ajou.da.testhelper.definition.DeviceType;
+import kr.ac.ajou.da.testhelper.definition.VerificationStatus;
 import kr.ac.ajou.da.testhelper.student.Student;
 import kr.ac.ajou.da.testhelper.submission.Submission;
 import kr.ac.ajou.da.testhelper.submission.SubmissionService;
 import kr.ac.ajou.da.testhelper.submission.exception.SubmissionNotFoundException;
 import kr.ac.ajou.da.testhelper.test.definition.TestType;
-import kr.ac.ajou.da.testhelper.test.room.TestRoomService;
 import kr.ac.ajou.da.testhelper.test.room.dto.RoomDto;
 import kr.ac.ajou.da.testhelper.test.room.exception.RoomNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,18 +25,21 @@ import static org.mockito.Mockito.when;
 
 class TestRoomServiceTest {
 
-    private final Student student = new Student(1L, "name", "201820000", "email@ajou.ac.kr");
+
     @InjectMocks
     private TestRoomService testRoomService;
     @Mock
     private SubmissionService submissionService;
-    private Course course = new Course(1L, "name");
+
+    private final Course course = new Course(1L, "name");
+    private final Student student = new Student(1L, "name", "201820000", "email@ajou.ac.kr");
     private final kr.ac.ajou.da.testhelper.test.Test test = new kr.ac.ajou.da.testhelper.test.Test(1L,
             TestType.MID,
             LocalDateTime.now(),
             LocalDateTime.now(),
             course);
-    private final Submission submission = new Submission(1L, student, test);
+    private final Long supervisedBy = 1L;
+    private final Submission submission = new Submission(1L, student, test, VerificationStatus.PENDING, supervisedBy);
 
     @BeforeEach
     void init() {
