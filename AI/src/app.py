@@ -6,8 +6,7 @@ from flask_restful import reqparse
 from flask_cors import CORS
 
 import sys
-sys.path.append("../")
-
+sys.path.extend(["../","./","./AI"])
 import json
 import s3path
 

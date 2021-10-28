@@ -1,4 +1,4 @@
 #!bin/bash
 
-python test/apiTest/identification_apiTest.py
-python test/moduleTest/identification_moduleTest.py
+python AI/test/apiTest/identification_apiTest.py
+python AI/test/moduleTest/identification_moduleTest.py

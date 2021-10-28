@@ -1,9 +1,6 @@
 import boto3
 import json
-import os
 import sys
-from dotenv import load_dotenv
-load_dotenv()
 
 
 def compare_faces(bucket,src_path,tar_path):

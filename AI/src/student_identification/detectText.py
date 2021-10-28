@@ -1,9 +1,7 @@
 import boto3
 import json
-import os
 import sys
-from dotenv import load_dotenv
-load_dotenv()
+
 
 def detect_text(bucket,path,studentNum):
     image = {'S3Object':{'Bucket':bucket,'Name':path}}
