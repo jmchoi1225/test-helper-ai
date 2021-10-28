@@ -10,6 +10,7 @@ services:
       - 80:80
     depends_on:
       - data-server
+      - ai-server
   data-server:
     container_name: data-server
     build:
@@ -27,19 +28,19 @@ services:
     volumes:
       - ~/.aws/:/root/.aws:ro
     
-  front: 
-    container_name: front
-    build:
-      context: frontend/
-      dockerfile: Dockerfile
-    volumes:
-      - "./frontend/:/app"
-      - "/app/node_modules"
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
+  # front: 
+  #   container_name: front
+  #   build:
+  #     context: frontend/
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - "./frontend/:/app"
+  #     - "/app/node_modules"
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NODE_ENV=development
+  #     - CHOKIDAR_USEPOLLING=true
 
   ai-server:
     container_name: ai-server

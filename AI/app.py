@@ -9,7 +9,6 @@ import json
 import s3path
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route('/identification',methods=['POST'])
 def identification():
