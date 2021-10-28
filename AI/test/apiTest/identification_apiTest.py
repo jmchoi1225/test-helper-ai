@@ -15,27 +15,27 @@ import s3path
 class UnitTest(unittest.TestCase):
     def setUp(self):
         self.app = app.app.test_client()
-        self.studentID = s3path.S3_TEMP_STUDENT_ID
+        self.studentNum = s3path.S3_TEMP_STUDENT_NUM
         self.testID = s3path.S3_TEMP_TEST_ID
-        self.fakestudentID = '0000000a'
+        self.fakestudentNum = '0000000a'
         self.faketestID = '00000a'
         self.right_parameter = {
             'test_id' : self.testID,
-            'student_id' : self.studentID
+            'student_num' : self.studentNum
         }
         self.wrong_parameter_testID = {
             'test_id' : self.faketestID,
-            'student_id' : self.studentID
+            'student_num' : self.studentNum
         }
-        self.wrong_parameter_studentID= {
+        self.wrong_parameter_studentNum= {
             'test_id' : self.testID,
-            'student_id' : self.fakestudentID
+            'student_num' : self.fakestudentNum
         }
-        self.no_parameter_studentID={
+        self.no_parameter_studentNum={
             'test_id' : self.testID
         }
         self.no_parameter_testID = {
-            'student_id' : self.studentID
+            'student_num' : self.studentNum
         }
         warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>") 
 
@@ -50,7 +50,7 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(False,data['result'])
 
     def test_wrong_studentID_parameter(self):
-        response = self.app.post("/identification",data=self.wrong_parameter_studentID)
+        response = self.app.post("/identification",data=self.wrong_parameter_studentNum)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
 
@@ -60,7 +60,7 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(False,data['result'])
 
     def test_no_studentID_parameter(self):
-        response = self.app.post("/identification",data=self.no_parameter_studentID)
+        response = self.app.post("/identification",data=self.no_parameter_studentNum)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
 
