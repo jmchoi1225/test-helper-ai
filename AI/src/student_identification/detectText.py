@@ -13,8 +13,6 @@ def detect_text(bucket,path,studentID):
         response = client.detect_text(Image=image) 
         for textDetail in response['TextDetections']:
             # print(json.dumps(textDetail, indent=4, sort_keys=True))
-            # print("DetectedText : " + str(textDetail['DetectedText']))
-            # print("Confidence: " + str(textDetail['Type']))
             if studentID == str(textDetail['DetectedText']) :
                 correct= True
                 break
@@ -26,7 +24,7 @@ def detect_text(bucket,path,studentID):
     
 def main():
     import sys
-    sys.path.append('../')
+    sys.path.extend(['../','../../'])
     import s3path
     bucket=s3path.S3_BUCKET
     path=s3path.S3_ROOT + os.environ['S3_TEMP_TEST'] + s3path.S3_STUDENT_FOLDER+ os.environ['S3_TEMP_STUDENT'] + s3path.S3_STUDENT_CARD
