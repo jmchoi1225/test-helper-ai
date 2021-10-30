@@ -44,7 +44,7 @@ public class TestStudentVerificationService {
 
         //TODO : refactor later -> 한방에 갈 수 있도록
 
-        List<Submission> submissions = submissionService.getByTestIDAndSupervisedBy(testId, proctorId);
+        List<Submission> submissions = submissionService.getByTestIdAndSupervisedBy(testId, proctorId);
 
         return submissions.stream()
                 .map(submission -> new GetTestStudentVerificationResDto(
@@ -59,7 +59,7 @@ public class TestStudentVerificationService {
     @Transactional
     public boolean update(Long testId, Long studentId, Boolean verified) {
 
-        Submission submission = submissionService.getByTestIDAndStudentID(testId, studentId);
+        Submission submission = submissionService.getByTestIdAndStudentId(testId, studentId);
         submission.updateVerified(verified);
 
         return true;
