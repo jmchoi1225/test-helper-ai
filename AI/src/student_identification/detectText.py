@@ -15,7 +15,7 @@ def detect_text(bucket,path,studentNum):
                 correct= True
                 break
     except:
-        sys.stderr.write("AWS 에 접근 시 오류가 발생하였습니다! \n")
+        ("AWS connect error! \n")
         return False
 
     return correct

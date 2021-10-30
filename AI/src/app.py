@@ -23,7 +23,7 @@ def identification():
     student_num = args['student_num']
     
     if not test_id or not student_num :
-        print("no test_id or student_num")
+        sys.stderr.write("no test_id or student_num in request body\n")
         return json.dumps({'result' : False})
 
     idcard_path= s3path.S3_ROOT+ test_id + s3path.S3_STUDENT_FOLDER+ student_num + s3path.S3_STUDENT_CARD
@@ -34,9 +34,12 @@ def identification():
 
     result_text = detect_text(bucket, idcard_path,student_num)
     if not result_text :
+        sys.stderr.write("Real student num and student number in id_card do not match!\n")
         return json.dumps({'result': False})
     
     result_face = compare_faces(bucket,idcard_path,face_path)
+    if not result_face :
+        sys.stderr.write("Real student face and student image in id_card do not match!\n")
     return json.dumps({'result' : result_face})
 
 

@@ -14,7 +14,7 @@ def compare_faces(bucket,src_path,tar_path):
         if len(response['FaceMatches'])==0 :
             answer=False
     except :
-        sys.stderr.write("AWS 에 접근 시 오류가 발생하였습니다! \n")
+        sys.stderr.write("AWS connect error! \n")
         return False
         
     return answer
