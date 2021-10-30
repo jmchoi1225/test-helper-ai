@@ -28,7 +28,7 @@ jobs:
         id: deploy
         run: |
           aws deploy create-deployment \
-          --application-name test-helper \
+          --application-name test_helper \
           --deployment-group-name test-helper-codedeploy-group \
           --deployment-config-name CodeDeployDefault.OneAtATime \
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
