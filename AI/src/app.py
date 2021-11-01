@@ -35,12 +35,16 @@ def identification():
     result_text = detect_text(bucket, idcard_path,student_num)
     if not result_text :
         sys.stderr.write("Real student num and student number in id_card do not match!\n")
-        return json.dumps({'result': False})
+        return json.dumps({'result': False,
+                           'err_reason' : 'student_num'})
     
     result_face = compare_faces(bucket,idcard_path,face_path)
     if not result_face :
         sys.stderr.write("Real student face and student image in id_card do not match!\n")
-    return json.dumps({'result' : result_face})
+        return json.dumps({'result': False,
+                           'err_reason' : 'face'})
+    return json.dumps({'result' : result_face,
+                       'err_reason': None })
 
 
 
