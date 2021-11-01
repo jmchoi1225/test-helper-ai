@@ -24,7 +24,8 @@ def identification():
     
     if not test_id or not student_num :
         sys.stderr.write("no test_id or student_num in request body\n")
-        return json.dumps({'result' : False})
+        return json.dumps({'result' : False,
+                            'err_reason' : 'check_request'})
 
     idcard_path= s3path.S3_ROOT+ test_id + s3path.S3_STUDENT_FOLDER+ student_num + s3path.S3_STUDENT_CARD
     face_path = s3path.S3_ROOT+ test_id + s3path.S3_STUDENT_FOLDER+ student_num + s3path.S3_FACE
