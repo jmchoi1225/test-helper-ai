@@ -15,7 +15,7 @@ def detect_text(bucket,path,studentNum):
                 correct= True
                 break
     except:
-        ("AWS connect error! \n")
+        sys.stderr.write("AWS connect error! \n")
         return False
 
     return correct
