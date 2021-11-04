@@ -1,4 +1,4 @@
-name: CD
+name: CD-test-helper-ai
 
 on:
   push:
@@ -27,6 +27,6 @@ jobs:
         run: |
           aws deploy create-deployment \
           --application-name test_helper \
-          --deployment-group-name test-helper-codedeploy-group \
+          --deployment-group-name test-helper-codedeploy-group-ai \
           --deployment-config-name CodeDeployDefault.OneAtATime \
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
