@@ -13,8 +13,10 @@ def compare_faces(bucket,src_path,tar_path):
         response = client.compare_faces(SimilarityThreshold=SIMILARITY_THRESHOLD, SourceImage=src_img, TargetImage=tar_img)
         if len(response['FaceMatches'])==0 :
             answer=False
+        else :
+            sys.stderr.write("{similarity}\n".format(similarity=response['FaceMatches'][0]['Similarity']))
     except :
-        sys.stderr.write("AWS 에 접근 시 오류가 발생하였습니다! \n")
+        sys.stderr.write("AWS connect error! \n")
         return False
         
     return answer
