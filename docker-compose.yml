@@ -1,11 +1,11 @@
 version: "2"
 services:
   reverse-proxy:
-    container_name: reverse-proxy
+    container_name: reverse-proxy-ai
     build:
       context: nginx/
       dockerfile : Dockerfile
-    image: reverse-proxy:latest
+    image: reverse-proxy-ai:latest
     ports:
       - 80:80
     depends_on:
