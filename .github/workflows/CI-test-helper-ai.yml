@@ -1,10 +1,10 @@
-name: CI
+name: CI-test-helper-ai
 
 on:
   push:
     branches: [ dev, main ]
   pull_request:
-    branches: [ activity/** ,dev, main ]
+    
 
   workflow_dispatch:
 
