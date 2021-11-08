@@ -71,7 +71,6 @@ class HandDetection(Resource):
     @api.expect(parser_hand)
     def post(self):
         args = parser_hand.parse_args()
-
         hand_img = Image.open(args['hand_img'])
         hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
         # hand_num = yolo.detect_image(image)
