@@ -1,6 +1,3 @@
-from student_identification.detectText import detect_text
-from student_identification.compareFace import compare_faces
-
 from flask import Flask
 from flask_restful import reqparse
 from flask_cors import CORS
@@ -10,6 +7,13 @@ from werkzeug.datastructures import FileStorage
 import sys
 sys.path.extend(["../","./","./AI"])
 import json
+from PIL import Image
+import numpy as np
+import cv2
+
+from student_identification.detectText import detect_text
+from student_identification.compareFace import compare_faces
+from hand_detection.google_hand import google_hands
 import s3path
 
 app = Flask(__name__)
@@ -64,7 +68,19 @@ class Identification(Resource):
 
 @ns_hand_detection.route("")
 class HandDetection(Resource):
-    pass
+    @api.expect(parser_hand)
+    def post(self):
+        args = parser_hand.parse_args()
+
+        hand_img = Image.open(args['hand_img'])
+        hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
+        # hand_num = yolo.detect_image(image)
+        result=False
+        if hand_num == 2 :
+            result = True
+   
+        # K.clear_session()
+        return {'result':result}
 
 
 if __name__ == '__main__':
