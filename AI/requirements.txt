@@ -5,3 +5,4 @@ flask_restx
 python-dotenv
 requests
 boto3
+mediapipe
