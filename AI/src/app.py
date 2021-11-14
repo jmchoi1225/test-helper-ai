@@ -72,8 +72,12 @@ class HandDetection(Resource):
     def post(self):
         args = parser_hand.parse_args()
         hand_img = Image.open(args['hand_img'])
-        hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
+        try :
+            hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
         # hand_num = yolo.detect_image(image)
+        except :
+            sys.stderr.write("mediapipe error(because of no hand i think)")
+            return {'result':False}
         result=False
         if hand_num == 2 :
             result = True
