@@ -40,26 +40,31 @@ class UnitTest(unittest.TestCase):
         response = self.app.post('/identification', data=self.right_parameter)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(True, data['result'])
+        self.assertEqual(None, data['err_reason'])
 
     def test_wrong_test_parameter(self):
         response = self.app.post("/identification",data=self.wrong_parameter_test_id)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
+        self.assertEqual("student_num", data['err_reason'])
 
     def test_wrong_studentID_parameter(self):
         response = self.app.post("/identification",data=self.wrong_parameter_student_num)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
+        self.assertEqual("student_num", data['err_reason'])
 
     def test_no_test_parameter(self):
         response = self.app.post("/identification",data=self.no_parameter_test_id)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
+        self.assertEqual("check_request", data['err_reason'])
 
     def test_no_studentID_parameter(self):
         response = self.app.post("/identification",data=self.no_parameter_student_num)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(False,data['result'])
+        self.assertEqual("check_request", data['err_reason'])
 
 if __name__ == "__main__":
     unittest.main()
