@@ -1,16 +1,5 @@
 version: "2"
 services:
-  reverse-proxy:
-    container_name: reverse-proxy
-    build:
-      context: nginx/
-      dockerfile : Dockerfile
-    image: reverse-proxy:latest
-    ports:
-      - 80:80
-    depends_on:
-      - ai-server
-
   ai-server:
     container_name: ai-server
     build:
