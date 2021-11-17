@@ -2,7 +2,8 @@ flask
 flask_cors
 flask_restful
 flask_restx
-python-dotenv
 requests
 boto3
 mediapipe
+opencv-python
+opencv-contrib-python
