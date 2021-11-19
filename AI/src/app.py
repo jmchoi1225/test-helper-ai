@@ -13,7 +13,8 @@ import cv2
 
 from student_identification.detectText import detect_text
 from student_identification.compareFace import compare_faces
-from hand_detection.google_hand import google_hands
+# from hand_detection.google_hand import google_hands
+from hand_detection.yolo import YOLO
 import s3path
 
 app = Flask(__name__)
@@ -71,12 +72,16 @@ class HandDetection(Resource):
     @api.expect(parser_hand)
     def post(self):
         args = parser_hand.parse_args()
-        hand_img = Image.open(args['hand_img'])
+        # hand_img = Image.open(args['hand_img'])
+        hand_img = cv2.imdecode(np.fromstring(args['hand_img'].read(), np.uint8), cv2.IMREAD_UNCHANGED)
         try :
-            hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
-        # hand_num = yolo.detect_image(image)
+            #hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
+            width, height, results = detection_model.inference(hand_img)
+            hand_num = len(results)
+            sys.stderr.write("hand_num : {hand_num}\n".format(hand_num=hand_num))
         except :
-            sys.stderr.write("mediapipe error(because of no hand i think)")
+            # sys.stderr.write("mediapipe error(because of no hand i think)")
+            sys.stderr.write("error to detection")
             return {'result':False}
         result=False
         if hand_num == 2 :
@@ -87,4 +92,5 @@ class HandDetection(Resource):
 
 
 if __name__ == '__main__':
+    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
     app.run(host='0.0.0.0',port=5000,threaded=True,debug=True)
