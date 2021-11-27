@@ -3,6 +3,6 @@
 venv/
 __pycache__/
 data/
-test/static/images/
+test/static/images/result.jpg
 
 .env
