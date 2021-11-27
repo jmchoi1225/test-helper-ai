@@ -11,22 +11,22 @@ import app
 class UnitTest(unittest.TestCase):
     def setUp(self):
         self.app = app.app.test_client()
-        with open("test/hands/onehand.jpg", 'rb') as img1:
+        with open("AI/test/hands/onehand.jpg", 'rb') as img1:
             self.onehand = BytesIO(img1.read())
-        with open("test/hands/twohands.jpg", 'rb') as img2:
+        with open("AI/test/hands/twohands.jpg", 'rb') as img2:
             self.twohand = BytesIO(img2.read())
-        with open("test/hands/fourhands.jpg", 'rb') as img3:
+        with open("AI/test/hands/fourhands.jpg", 'rb') as img3:
             self.fourhand = BytesIO(img3.read())
         self.wrong = "wrong"
 
         self.onehand_parameter = {
-            'hand_img' : (self.onehand, "test/hands/onehand.jpg")
+            'hand_img' : (self.onehand, "onehand.jpg")
         }
         self.twohand_parameter = {
-            'hand_img' : (self.twohand, "test/hands/twohands.jpg")
+            'hand_img' : (self.twohand, "twohands.jpg")
         }
         self.fourhand_parameter= {
-            'hand_img' : (self.fourhand, "test/hands/fourhands.jpg")
+            'hand_img' : (self.fourhand, "fourhands.jpg")
         }
         self.wrong_parameter={
             'hand_img' : self.wrong
