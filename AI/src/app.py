@@ -5,7 +5,8 @@ from flask_restx import Resource, Api, reqparse
 from werkzeug.datastructures import FileStorage
 
 import sys
-sys.path.extend(["../","./","./AI"])
+import argparse
+sys.path.extend(["../","./","./AI","./AI/src"])
 import json
 from PIL import Image
 import numpy as np
@@ -26,13 +27,21 @@ ns_identification = api.namespace('identification', description = 'student ident
 ns_hand_detection = api.namespace('hand-detection',description= "hand detection")
 
 parser_identification = api.parser()
-parser_identification.add_argument('test_id', type= str,help = 'ID of test',required=True, location='form')
-parser_identification.add_argument('student_num', type= str,help = 'num of student',required=True, location='form')
+parser_identification.add_argument('test_id', type= str,help = 'ID of test',location='form')
+parser_identification.add_argument('student_num', type= str,help = 'num of student',location='form')
 
 parser_hand = api.parser()
 parser_hand.add_argument('hand_img', type =FileStorage, help = "hand image", location='files')
 
-detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+parser = argparse.ArgumentParser()
+parser.add_argument('--mode', type=int, default=0, help='path to evaluation dataset')
+opt = parser.parse_args()
+
+if opt.mode :
+    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+else :
+    detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+
 @ns_identification.route("")
 class Identification(Resource):
     @api.expect(parser_identification)
