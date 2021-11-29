@@ -5,7 +5,8 @@ from flask_restx import Resource, Api, reqparse
 from werkzeug.datastructures import FileStorage
 
 import sys
-sys.path.extend(["../","./","./AI"])
+import argparse
+sys.path.extend(["../","./","./AI","./AI/src"])
 import json
 from PIL import Image
 import numpy as np
@@ -26,11 +27,20 @@ ns_identification = api.namespace('identification', description = 'student ident
 ns_hand_detection = api.namespace('hand-detection',description= "hand detection")
 
 parser_identification = api.parser()
-parser_identification.add_argument('test_id', type= str,help = 'ID of test',required=True, location='form')
-parser_identification.add_argument('student_num', type= str,help = 'num of student',required=True, location='form')
+parser_identification.add_argument('test_id', type= str,help = 'ID of test',location='form')
+parser_identification.add_argument('student_num', type= str,help = 'num of student',location='form')
 
 parser_hand = api.parser()
-parser_hand.add_argument('hand_img', type =FileStorage, help = "hand image",required=True, location='files')
+parser_hand.add_argument('hand_img', type =FileStorage, help = "hand image", location='files')
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--mode', type=int, default=0, help='path to evaluation dataset')
+opt = parser.parse_args()
+
+if opt.mode :
+    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+else :
+    detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
 
 @ns_identification.route("")
 class Identification(Resource):
@@ -72,16 +82,21 @@ class HandDetection(Resource):
     @api.expect(parser_hand)
     def post(self):
         args = parser_hand.parse_args()
-        # hand_img = Image.open(args['hand_img'])
-        hand_img = cv2.imdecode(np.fromstring(args['hand_img'].read(), np.uint8), cv2.IMREAD_UNCHANGED)
         try :
-            #hand_num = google_hands(cv2.cvtColor(np.array(hand_img), cv2.COLOR_RGB2BGR))
+            hand_img = args['hand_img'].read()
+            hand_img = cv2.imdecode(np.fromstring(hand_img, np.uint8), cv2.IMREAD_UNCHANGED)
+        except :
+            sys.stderr.write("no hand_img in request body\n")
+            return {'result' : False}
+        # hand_img = Image.open(args['hand_img'])
+
+        try :
             width, height, results = detection_model.inference(hand_img)
             hand_num = len(results)
             sys.stderr.write("hand_num : {hand_num}\n".format(hand_num=hand_num))
         except :
             # sys.stderr.write("mediapipe error(because of no hand i think)")
-            sys.stderr.write("error to detection")
+            sys.stderr.write("error to detection\n")
             return {'result':False}
         result=False
         if hand_num == 2 :
@@ -92,5 +107,4 @@ class HandDetection(Resource):
 
 
 if __name__ == '__main__':
-    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
     app.run(host='0.0.0.0',port=5000,threaded=True,debug=True)
