@@ -3,7 +3,7 @@
 venv/
 __pycache__/
 data/
-*.weights
+test/static/images/result.jpg
 
 .env
 *.weights
