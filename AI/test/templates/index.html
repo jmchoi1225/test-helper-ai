@@ -29,7 +29,19 @@
         <br />
         <br />
 
-        <h3>hand detection Coming Soon</h3>
+        <h3>hand detection</h3>
+        <div>
+            <form action="/hand-detection" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Example hand sfile input</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="hand_img">
+                  </div>
+                
+                <div>
+                    <button type="submit" class="btn btn-success">두손 인식 결과 보기 </button>
+                </div>
+            </form>
+        </div>
 
     </div>
 </body>
