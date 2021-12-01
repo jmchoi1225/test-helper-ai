@@ -38,9 +38,9 @@ parser.add_argument('--mode', type=int, default=0, help='path to evaluation data
 opt = parser.parse_args()
 
 if opt.mode :
-    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+    detection_model = YOLO("src/hand_detection/models/yolov4-tiny-custom.cfg","src/hand_detection/models/yolov4-tiny.weights", ["hand"])
 else :
-    detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+    detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny.weights", ["hand"])
 
 @ns_identification.route("")
 class Identification(Resource):
