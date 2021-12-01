@@ -7,7 +7,7 @@ from hand_detection.yolo import YOLO
 
 class UnitTest(unittest.TestCase):
     def setUp(self): 
-        self.detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny-custom_only_egodataset.weights", ["hand"])
+        self.detection_model = YOLO("AI/src/hand_detection/models/yolov4-tiny-custom.cfg","AI/src/hand_detection/models/yolov4-tiny.weights", ["hand"])
         self.fourhands = cv2.imread("AI/test/hands/fourhands.jpg")
         self.twohands = cv2.imread("AI/test/hands/twohands.jpg")
         self.onehand = cv2.imread("AI/test/hands/onehand.jpg")
