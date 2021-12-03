@@ -14,7 +14,6 @@ import cv2
 
 from student_identification.detectText import detect_text
 from student_identification.compareFace import compare_faces
-# from hand_detection.google_hand import google_hands
 from hand_detection.yolo import YOLO
 import s3path
 
