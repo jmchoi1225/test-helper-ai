@@ -1,4 +1,4 @@
-# test-helper
+# test-helper-ai
 2021-2 SW Capstone Design Project  
 [Test-Helper 기획 및 시연 발표영상](https://softcon.ajou.ac.kr/works/works.asp?uid=470)  
 [Test-Helper github](https://github.com/DA-sc21/test-helper)  
