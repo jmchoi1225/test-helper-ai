@@ -7,3 +7,4 @@ boto3
 mediapipe
 opencv-python
 opencv-contrib-python
+coverage
