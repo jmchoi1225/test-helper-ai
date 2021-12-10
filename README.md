@@ -139,6 +139,6 @@ test-helper-ai
 
 ### reference 
 * model
-  - YOLOv4-tiny
-  https://github.com/AlexeyAB/darknet
-  https://github.com/cansik/yolo-hand-detection 
+  - YOLOv4-tiny  
+  https://github.com/AlexeyAB/darknet  
+  https://github.com/cansik/yolo-hand-detection   
