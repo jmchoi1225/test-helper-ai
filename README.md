@@ -1,6 +1,9 @@
 # test-helper
 2021-2 SW Capstone Design Project  
-[Test-Helper 기획 및 시연 발표영상](https://softcon.ajou.ac.kr/works/works.asp?uid=470)
+[Test-Helper 기획 및 시연 발표영상](https://softcon.ajou.ac.kr/works/works.asp?uid=470)  
+[Test-Helper github](https://github.com/DA-sc21/test-helper)  
+[Test-Helper-ai github](https://github.com/DA-sc21/test-helper-ai)  
+[hand-detection github](https://github.com/DA-sc21/hand_detection)  
 
 <br />
 
@@ -70,7 +73,7 @@ $ cd test-helper-ai/
 - system 구조 
 <img src="imgs/system_architecture.png" width = "60%">
 
-(test-helper-ai)
+test-helper-ai
 - flask
   - AI server 구축 
 
@@ -85,7 +88,7 @@ $ cd test-helper-ai/
 
 <br />
 
-(test-helper)
+([test-helper](https://github.com/DA-sc21/test-helper))  
 - react
   - frontend client 구축
 
