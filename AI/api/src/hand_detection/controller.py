@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import sys
 
-from hand_detection.ai import HandDetectionService
+from .ai import HandDetectionService
 
 HandDetectionNamespace = Namespace(
     name = 'hand-detection',

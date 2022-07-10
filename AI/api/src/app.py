@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api
 
-from controller.identification import IdentificationNamespace
+from student_identification.controller import StudentIdentificationNamespace
 from hand_detection.controller import HandDetectionNamespace
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ api = Api(
     description = 'check test-helper-ai-api'
 )
 
-api.add_namespace(IdentificationNamespace, '/identification')
+api.add_namespace(StudentIdentificationNamespace, '/identification')
 api.add_namespace(HandDetectionNamespace, '/hand-detection')
 
 if __name__ == '__main__':

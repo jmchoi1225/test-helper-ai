@@ -1,4 +1,4 @@
-from hand_detection.ai.yolo import YOLO
+from .yolo import YOLO
 
 class HandDetectionService:
     def __new__(cls): # singleton
