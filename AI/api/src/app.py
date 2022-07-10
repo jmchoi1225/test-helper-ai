@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restx import Api
 
 from controller.identification import IdentificationNamespace
-from controller.hand_detection import HandDetectionNamespace
+from hand_detection.controller import HandDetectionNamespace
 
 app = Flask(__name__)
 
